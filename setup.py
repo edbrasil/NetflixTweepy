@@ -6,6 +6,7 @@ Created on Mon Jan  7 13:38:31 2019
 """
 
 import json
+import glob
 from tweepy import OAuthHandler,API,Stream
 from slistener import SListener
 
@@ -31,7 +32,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = API(auth)
 
 # Set up words to track
-keywords_to_track = ('#Netflix','#LukeCage', '#IronFist', '#Daredevil')
+keywords_to_track = ['#Punisher']#,'#LukeCage', '#IronFist', '#Daredevil',
 
 # Instantiate the SListener object 
 listen = SListener(api)
@@ -44,14 +45,18 @@ stream.filter(track = keywords_to_track)
 print (stream)
 
 
-#Load JSON
+#Load JSONs
 tweet_list = []
-with open('streamer_20190107-134421.json', 'r') as tweet_data:
-    tweets_json = filter(None,tweet_data.read().split("\n"))
+
+for file in glob.glob("streamer* - Copy.json"):
+    with open(file, 'r') as tweet_data:
+        tweets_json = filter(None,tweet_data.read().split("\n"))
     
     for tweet in tweets_json:
         tweet_obj = json.loads(tweet)
         tweet_list.append(tweet_obj)
+        
+print(len(tweet_list))
 
 #print(tweet['text'])
                      
