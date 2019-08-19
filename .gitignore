@@ -1,0 +1,6 @@
+Archive/*
+__pycache__/*
+.ipynb_checkpoints/*
+streamer_2019*
+twitter_credentials.json
+__init__.py
